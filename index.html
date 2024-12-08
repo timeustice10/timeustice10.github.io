@@ -38,7 +38,7 @@
         const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
         scene.add(light);
 
-        // Add OrbitControls
+        // Add OrbitControls (disabled)
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true; // Enable damping for smoother controls
         controls.enabled = false; // Disable OrbitControls interaction
@@ -46,6 +46,7 @@
         // Animation loop to render the scene
         function animate() {
             requestAnimationFrame(animate);
+            controls.update();  // Update controls if enabled
             renderer.render(scene, camera);
         }
 
