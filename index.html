@@ -11,7 +11,7 @@
 </head>
 <body>
     <script type="module">
-        // Import Three.js from a valid CDN
+        // Import Three.js and dependencies from Unpkg CDN
         import * as THREE from 'https://unpkg.com/three@0.150.0/build/three.module.js';
         import { GLTFLoader } from 'https://unpkg.com/three@0.150.0/examples/jsm/loaders/GLTFLoader.js';
         import { OrbitControls } from 'https://unpkg.com/three@0.150.0/examples/jsm/controls/OrbitControls.js';
@@ -33,7 +33,7 @@
             console.error('Error loading model:', error);
         });
 
-        // Add OrbitControls
+        // Add OrbitControls to move the camera around
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
 
