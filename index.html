@@ -29,7 +29,6 @@
         // Import Three.js and dependencies
         import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.module.min.js';
         import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/loaders/GLTFLoader.js';
-        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/controls/OrbitControls.js';
 
         // Scene setup
         const scene = new THREE.Scene();
@@ -83,9 +82,6 @@
                 
                 // Show the resume overlay
                 document.getElementById('resume').style.display = 'block';
-
-                // Disable OrbitControls
-                controls.enabled = false;
 
                 // Zoom into the computer screen
                 camera.position.set(0, 1, 2);
