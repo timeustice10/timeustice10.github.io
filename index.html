@@ -3,118 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Tabs with URL Bar</title>
+    <title>About Timothy Eustice</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-        }
-        .browser-bar {
-            background-color: #dfe1e5;
-            padding: 10px;
+            background-color: #fff;
+            height: 100vh;
             display: flex;
+            justify-content: center;
             align-items: center;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 60px;
+            color: #4285f4;
+            margin-bottom: 30px;
+        }
+        .search-bar {
+            position: relative;
+            width: 500px;
+            margin: 0 auto;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
             border: 1px solid #ccc;
-            border-radius: 8px 8px 0 0;
-            font-family: monospace;
+            border-radius: 24px;
+            outline: none;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .url-bar {
-            flex: 1;
-            padding: 5px;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 5px;
-        }
-        .tab-container {
-            display: flex;
-            background-color: #dfe1e5;
-            border-bottom: 2px solid #ccc;
-            padding-left: 10px;
-        }
-        .tab {
-            padding: 10px 20px;
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: #d9534f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
             cursor: pointer;
-            background-color: #e0e0e0;
-            border-radius: 8px 8px 0 0;
-            margin-right: 5px;
+            font-size: 16px;
             transition: background-color 0.3s;
         }
-        .tab.active {
-            background-color: white;
-            border-bottom: 2px solid white;
-        }
-        .tab:hover {
-            background-color: #f1f1f1;
-        }
-        .content {
-            display: none;
-            padding: 20px;
-            background-color: white;
-            border: 2px solid #ccc;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-        }
-        .content.active {
-            display: block;
+        .search-button:hover {
+            background-color: #c9302c;
         }
     </style>
 </head>
 <body>
 
-    <div class="browser-bar">
-        <span>🔒 https://myresume.com/</span>
-        <div class="url-bar" id="url-bar">skills</div>
-    </div>
-
-    <div class="tab-container">
-        <div class="tab active" onclick="showContent('skills', 'skills')">Skills</div>
-        <div class="tab" onclick="showContent('experience', 'experience')">Experience</div>
-        <div class="tab" onclick="showContent('interests', 'interests')">Interests</div>
-    </div>
-
-    <div id="skills" class="content active">
-        <h2>Skills</h2>
-        <ul>
-            <li>HTML, CSS, JavaScript</li>
-            <li>Python, Java</li>
-            <li>Web Design</li>
-            <li>Data Analysis</li>
-        </ul>
-    </div>
-
-    <div id="experience" class="content">
-        <h2>Experience</h2>
-        <p><strong>Web Developer Intern</strong><br>
-        ABC Company - 2023</p>
-        <p>Designed and developed responsive websites for clients using modern web technologies.</p>
-    </div>
-
-    <div id="interests" class="content">
-        <h2>Interests</h2>
-        <p>Traveling, Coding, Photography, and Learning new languages.</p>
+    <div class="container">
+        <h1>Google</h1>
+        <div class="search-bar">
+            <input type="text" value="about Timothy Eustice" readonly />
+            <button class="search-button" onclick="goToResume()">Click to Search</button>
+        </div>
     </div>
 
     <script>
-        function showContent(sectionId, sectionName) {
-            // Remove 'active' class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            // Add 'active' class to the clicked tab
-            event.currentTarget.classList.add('active');
-
-            // Hide all content sections
-            const contents = document.querySelectorAll('.content');
-            contents.forEach(content => content.classList.remove('active'));
-
-            // Show the selected content section
-            document.getElementById(sectionId).classList.add('active');
-
-            // Update the URL bar with the section name
-            document.getElementById('url-bar').innerText = sectionName;
+        function goToResume() {
+            // Redirect to the resume page with tabs
+            window.location.href = 'resume.html';
         }
     </script>
 
