@@ -26,33 +26,59 @@
         document.body.appendChild(renderer.domElement);
 
         // Add a light source
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
         directionalLight.position.set(0, 5, 5);
         scene.add(directionalLight);
 
-        // Load GLTF model
-        const loader = new GLTFLoader();
-        let computerModel;
-        loader.load('/retro_computer/scene.gltf', (gltf) => {
-            computerModel = gltf.scene;
-            scene.add(computerModel);
-            // Rotate the model 90 degrees to the right (clockwise)
-            computerModel.rotation.y = -(Math.PI / 2); // Rotate 90 degrees (in radians)
-            computerModel.traverse((node) => {
-                if (node.isMesh) {
-                    // Fix transparency issues
-                    node.material.transparent = false;
-                    node.material.opacity = 1;
-                    node.material.side = THREE.DoubleSide;
-                    if (node.material.alphaMode) {
-                        node.material.alphaMode = 'OPAQUE';
-                    }
-                    node.material.needsUpdate = true;
+        // Create a Loading Manager to handle model and texture loading
+        const loadingManager = new THREE.LoadingManager(
+            () => {
+                console.log('All textures and models are loaded');
+                animate();  // Start animation after everything is loaded
+            },
+            (url, itemsLoaded, itemsTotal) => {
+                console.log(`${itemsLoaded} of ${itemsTotal} items loaded`);
+            }
+        );
+
+        // Load textures with a texture loader
+        const textureLoader = new THREE.TextureLoader(loadingManager);
+        const texture = textureLoader.load('/retro_computer/textures/Part1_baseColor.png', 
+            (texture) => {
+                // This is called when the texture is loaded successfully
+                console.log('Texture loaded successfully');
+            }, 
+            (xhr) => {
+                // Progress handler
+                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            }, 
+            (error) => {
+                // Error handler
+                console.error('Error loading texture:', error);
+            }
+        );
+
+        // Create materials using the loaded texture
+        const material = new THREE.MeshStandardMaterial({ map: texture });
+
+        // Load the GLTF model using GLTFLoader
+        const loader = new GLTFLoader(loadingManager);
+        loader.load('model.glb', (gltf) => {
+            const model = gltf.scene;
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    // Apply the material to the mesh
+                    child.material = material;
                 }
             });
-            // Disable orbit controls after model is loaded
-            //controls.enabled = false;
-        }, undefined, (error) => {
+
+            // Add the model to the scene
+            scene.add(model);
+        }, 
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        }, 
+        (error) => {
             console.error('Error loading model:', error);
         });
 
