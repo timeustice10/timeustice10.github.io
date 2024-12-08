@@ -26,7 +26,7 @@
         document.body.appendChild(renderer.domElement);
 
         // Add a light source
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(0, 5, 5);
         scene.add(directionalLight);
 
@@ -43,9 +43,6 @@
                     // Fix transparency issues
                     node.material.transparent = false;
                     node.material.opacity = 1;
-                    node.castShadow = true;  // Enable casting shadows
-                    node.receiveShadow = true;  // Enable receiving shadows
-                    node.renderOrder = 1;
                     node.material.side = THREE.DoubleSide;
                     if (node.material.alphaMode) {
                         node.material.alphaMode = 'OPAQUE';
