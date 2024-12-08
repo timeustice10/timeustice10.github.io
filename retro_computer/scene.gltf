@@ -223,7 +223,7 @@
   ],
   "materials": [
     {
-      "alphaMode": "BLEND",
+      "alphaMode": 'OPAQUE',
       "doubleSided": true,
       "emissiveFactor": [
         1.0,
@@ -250,7 +250,7 @@
       }
     },
     {
-      "alphaMode": "BLEND",
+      "alphaMode": 'OPAQUE',
       "doubleSided": true,
       "emissiveFactor": [
         1.0,
