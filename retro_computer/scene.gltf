@@ -192,33 +192,33 @@
   "buffers": [
     {
       "byteLength": 2361624,
-      "uri": "/retro_computer/scene.bin"
+      "uri": "scene.bin"
     }
   ],
   "images": [
     {
-      "uri": "/retro_computer/textures/Part1_baseColor.png"
+      "uri": "Part1_baseColor.png"
     },
     {
-      "uri": "/retro_computer/textures/Part1_metallicRoughness.png"
+      "uri": "Part1_metallicRoughness.png"
     },
     {
-      "uri": "/retro_computer/textures/Part1_emissive.jpeg"
+      "uri": "textures/Part1_emissive.jpeg"
     },
     {
-      "uri": "/retro_computer/textures/Part1_normal.png"
+      "uri": "textures/Part1_normal.png"
     },
     {
-      "uri": "/retro_computer/textures/Part2_baseColor.png"
+      "uri": "textures/Part2_baseColor.png"
     },
     {
-      "uri": "/retro_computer/textures/Part2_metallicRoughness.png"
+      "uri": "textures/Part2_metallicRoughness.png"
     },
     {
-      "uri": "/retro_computer/textures/Part2_emissive.jpeg"
+      "uri": "textures/Part2_emissive.jpeg"
     },
     {
-      "uri": "/retro_computer/textures/Part2_normal.png"
+      "uri": "textures/Part2_normal.png"
     }
   ],
   "materials": [
