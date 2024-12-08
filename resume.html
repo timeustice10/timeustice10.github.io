@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Tabs with URL Bar</title>
+    <title>Resume Tabs with URL Bar and Close Buttons</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,12 +11,30 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-        .tab-container {
+        .tab-container-wrapper {
             display: flex;
+            align-items: center;
             background-color: #dfe1e5;
             border-bottom: 2px solid #ccc;
-            padding-left: 10px;
             border-radius: 8px 8px 0 0;
+            padding: 5px 10px;
+        }
+        .window-controls {
+            display: flex;
+            margin-right: 10px;
+        }
+        .window-controls .circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .circle.red { background-color: #ff5f57; }
+        .circle.yellow { background-color: #ffbd2e; }
+        .circle.green { background-color: #28c940; }
+
+        .tab-container {
+            display: flex;
         }
         .tab {
             padding: 10px 20px;
@@ -24,6 +42,9 @@
             background-color: #e0e0e0;
             border-radius: 8px 8px 0 0;
             margin-right: 5px;
+            display: flex;
+            align-items: center;
+            position: relative;
             transition: background-color 0.3s;
         }
         .tab.active {
@@ -32,6 +53,15 @@
         }
         .tab:hover {
             background-color: #f1f1f1;
+        }
+        .close-btn {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: red;
         }
         .browser-bar {
             background-color: #dfe1e5;
@@ -65,10 +95,23 @@
 </head>
 <body>
 
-    <div class="tab-container">
-        <div class="tab active" onclick="showContent('skills', 'skills')">Skills</div>
-        <div class="tab" onclick="showContent('experience', 'experience')">Experience</div>
-        <div class="tab" onclick="showContent('interests', 'interests')">Interests</div>
+    <div class="tab-container-wrapper">
+        <div class="window-controls">
+            <div class="circle red"></div>
+            <div class="circle yellow"></div>
+            <div class="circle green"></div>
+        </div>
+        <div class="tab-container">
+            <div class="tab active" onclick="showContent('skills', 'skills')">
+                Skills <span class="close-btn" onclick="closeTab(event)">✕</span>
+            </div>
+            <div class="tab" onclick="showContent('experience', 'experience')">
+                Experience <span class="close-btn" onclick="closeTab(event)">✕</span>
+            </div>
+            <div class="tab" onclick="showContent('interests', 'interests')">
+                Interests <span class="close-btn" onclick="closeTab(event)">✕</span>
+            </div>
+        </div>
     </div>
 
     <div class="browser-bar">
@@ -116,6 +159,23 @@
 
             // Update the URL bar with the section name
             document.getElementById('url-bar').innerText = sectionName;
+        }
+
+        function closeTab(event) {
+            event.stopPropagation(); // Prevent triggering tab click
+            const tab = event.currentTarget.parentElement;
+            tab.remove();
+
+            // Optionally, show a default or remaining tab after closing
+            const remainingTabs = document.querySelectorAll('.tab');
+            if (remainingTabs.length > 0) {
+                remainingTabs[0].click(); // Simulate clicking the first remaining tab
+            } else {
+                // Clear URL bar and content if no tabs remain
+                document.getElementById('url-bar').innerText = '';
+                const contents = document.querySelectorAll('.content');
+                contents.forEach(content => content.classList.remove('active'));
+            }
         }
     </script>
 
