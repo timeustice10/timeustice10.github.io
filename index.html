@@ -26,9 +26,8 @@
         document.body.appendChild(renderer.domElement);
 
         // Add a light source
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-        directionalLight.position.set(0, 5, 5);
-        scene.add(directionalLight);
+        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+        scene.add(light);
 
         // Load GLTF model
         const loader = new GLTFLoader();
