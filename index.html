@@ -39,7 +39,7 @@
             // Rotate the model 90 degrees to the right (clockwise)
             computerModel.rotation.y = -(Math.PI / 2); // Rotate 90 degrees (in radians)
             // Disable orbit controls after model is loaded
-            controls.enabled = false;
+            //controls.enabled = false;
         }, undefined, (error) => {
             console.error('Error loading model:', error);
         });
@@ -47,7 +47,7 @@
         // Add OrbitControls (disabled initially)
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true; // Enable damping for smoother controls
-        controls.enabled = false; // Disable OrbitControls interaction initially
+        controls.enabled = true; // Disable OrbitControls interaction initially
 
         // Animation loop to render the scene
         function animate() {
