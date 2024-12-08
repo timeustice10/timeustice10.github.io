@@ -60,7 +60,7 @@
         const loader = new GLTFLoader();
         let computerModel;
         
-        loader.load('computer_model.gltf', (gltf) => {
+        loader.load('my_computer.gltf', (gltf) => {
             computerModel = gltf.scene;
             computerModel.scale.set(1.5, 1.5, 1.5);
             scene.add(computerModel);
