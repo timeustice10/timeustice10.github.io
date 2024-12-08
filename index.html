@@ -32,7 +32,7 @@
         // Load GLTF model
         let computerModel;
         const loader = new GLTFLoader();
-        loader.load('/models/my_computer.gltf', (gltf) => {
+        loader.load('/my_computer/my_computer.gltf', (gltf) => {
             computerModel = gltf.scene;
             scene.add(computerModel);
         }, undefined, (error) => {
