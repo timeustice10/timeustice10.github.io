@@ -5,13 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Computer Resume</title>
     <style>
-        body { margin: 0; overflow: hidden; }
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            position: relative;
+        }
         canvas { display: block; }
+
+        /* Style for the iframe overlay */
+        #resume-frame {
+            position: absolute;
+            width: 300px; /* Adjust to match your computer screen */
+            height: 200px; /* Adjust to match your computer screen */
+            border: none;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
+    <!-- Iframe to display the resume -->
+    <iframe id="resume-frame" src="resume.html"></iframe>
+
     <script type="module">
-        // Import Three.js and dependencies from Unpkg CDN
+        // Import Three.js and dependencies from CDN
         import * as THREE from 'https://unpkg.com/three@0.127.0/build/three.module.js';
         import { GLTFLoader } from 'https://unpkg.com/three@0.127.0/examples/jsm/loaders/GLTFLoader.js';
         import { OrbitControls } from 'https://unpkg.com/three@0.127.0/examples/jsm/controls/OrbitControls.js';
@@ -32,7 +48,7 @@
         // Load GLTF model
         let computerModel;
         const loader = new GLTFLoader();
-        loader.load('/my_computer/my_computer.gltf', (gltf) => {
+        loader.load('/models/my_computer.gltf', (gltf) => {
             computerModel = gltf.scene;
             scene.add(computerModel);
         }, undefined, (error) => {
@@ -43,46 +59,56 @@
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
 
-        // Raycaster and mouse vector for detecting clicks
+        // Raycaster and mouse for detecting clicks
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
-        // Handle click event
+        // Get iframe element
+        const resumeFrame = document.getElementById('resume-frame');
+
+        // Function to handle click events
         function onClick(event) {
             // Calculate mouse position in normalized device coordinates (-1 to +1)
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            // Update raycaster with mouse position and camera
+            // Update the raycaster
             raycaster.setFromCamera(mouse, camera);
 
-            // Check for intersections with the computer model
+            // Check for intersections
             if (computerModel) {
                 const intersects = raycaster.intersectObject(computerModel, true);
                 if (intersects.length > 0) {
-                    // Redirect to resume.html when the computer is clicked
-                    window.location.href = 'resume.html';
+                    showResume();
                 }
             }
         }
 
-        // Add event listener for clicks
+        // Function to show the resume and zoom in
+        function showResume() {
+            // Disable controls
+            controls.enabled = false;
+
+            // Zoom in by moving the camera closer to the computer
+            const targetPosition = new THREE.Vector3(0, 1, 2); // Adjust to match your model's screen position
+            camera.position.lerp(targetPosition, 0.1);
+
+            // Position the iframe
+            resumeFrame.style.left = 'calc(50% - 150px)'; // Center horizontally (adjust based on iframe size)
+            resumeFrame.style.top = 'calc(50% - 100px)';  // Center vertically (adjust based on iframe size)
+            resumeFrame.style.display = 'block';
+        }
+
+        // Listen for click events
         window.addEventListener('click', onClick);
 
         // Animation loop to render the scene
         function animate() {
             requestAnimationFrame(animate);
-            controls.update();  // Update controls
+            controls.update();
             renderer.render(scene, camera);
         }
         animate();
-
-        // Handle window resizing
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
     </script>
 </body>
 </html>
