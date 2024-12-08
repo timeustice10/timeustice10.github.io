@@ -7,96 +7,56 @@
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
-        .resume-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 640px;
-            height: 480px;
-            transform: translate(-50%, -50%);
-            background: white;
-            border: 2px solid #000;
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <div class="resume-overlay" id="resume">
-        <iframe src="resume.html" width="100%" height="100%"></iframe>
-    </div>
-
     <script type="module">
         // Import Three.js and dependencies
-        import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.module.min.js';
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.127.0/build/three.module.js';
         import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.127.0/examples/jsm/controls/OrbitControls.js';
 
-        // Scene setup
+        // Create scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 1, 5);
+        camera.position.set(0, 1, 5);  // Initial camera position
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Add lighting
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-        directionalLight.position.set(0, 5, 5);
-        scene.add(directionalLight);
-
-        let computerModel;
+        // Load GLTF model
         const loader = new GLTFLoader();
         loader.load('/retro_computer/scene.gltf', (gltf) => {
-            computerModel = gltf.scene;
+            const computerModel = gltf.scene;
             scene.add(computerModel);
-    
-            computerModel.traverse((node) => {
-                if (node.isMesh) {
-                    // Fix transparency issues
-                    node.material.transparent = false;
-                    node.material.opacity = 1;
-                    node.material.side = THREE.DoubleSide;
-                    if (node.material.alphaMode) {
-                        node.material.alphaMode = 'OPAQUE';
-                    }
-                    node.material.needsUpdate = true;
-                }
-            });
         }, undefined, (error) => {
             console.error('Error loading model:', error);
         });
 
-        // Raycaster for detecting clicks
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+        // Create a light source
+        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+        scene.add(light);
 
-        function onClick(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        // Add OrbitControls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Enable damping for smoother controls
+        controls.enabled = false; // Disable OrbitControls interaction
 
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(scene.children, true);
-
-            if (intersects.length > 0) {
-                const target = intersects[0].object;
-                
-                // Show the resume overlay
-                document.getElementById('resume').style.display = 'block';
-
-                // Zoom into the computer screen
-                camera.position.set(0, 1, 2);
-            }
-        }
-
-        window.addEventListener('click', onClick);
-
-        // Animation loop
+        // Animation loop to render the scene
         function animate() {
             requestAnimationFrame(animate);
-            controls.update();
+            controls.update();  // Update controls if enabled
             renderer.render(scene, camera);
         }
+
+        // Start the animation loop
         animate();
+
+        // Zoom in when clicking on the screen
+        renderer.domElement.addEventListener('click', () => {
+            camera.position.z -= 1;  // Zoom in a little by decreasing the z-position
+        });
     </script>
 </body>
 </html>
