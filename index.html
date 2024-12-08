@@ -47,10 +47,6 @@
                     if (node.material.alphaMode) {
                         node.material.alphaMode = 'OPAQUE';
                     }
-                    if (node.material.map) {
-                        node.material.map.encoding = THREE.sRGBEncoding;
-                        node.material.transparent = false;
-                    }
                     node.material.needsUpdate = true;
                 }
             });
