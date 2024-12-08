@@ -53,6 +53,19 @@
         loader.load('/retro_computer/scene.gltf', (gltf) => {
             computerModel = gltf.scene;
             scene.add(computerModel);
+    
+            computerModel.traverse((node) => {
+                if (node.isMesh) {
+                    // Fix transparency issues
+                    node.material.transparent = false;
+                    node.material.opacity = 1;
+                    node.material.side = THREE.DoubleSide;
+                    if (node.material.alphaMode) {
+                        node.material.alphaMode = 'OPAQUE';
+                    }
+                    node.material.needsUpdate = true;
+                }
+            });
         }, undefined, (error) => {
             console.error('Error loading model:', error);
         });
