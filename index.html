@@ -25,23 +25,26 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
+        // Add a light source
+        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+        scene.add(light);
+
         // Load GLTF model
         const loader = new GLTFLoader();
+        let computerModel;
         loader.load('/retro_computer/scene.gltf', (gltf) => {
-            const computerModel = gltf.scene;
+            computerModel = gltf.scene;
             scene.add(computerModel);
+            // Disable orbit controls after model is loaded
+            controls.enabled = false;
         }, undefined, (error) => {
             console.error('Error loading model:', error);
         });
 
-        // Create a light source
-        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-        scene.add(light);
-
-        // Add OrbitControls (disabled)
+        // Add OrbitControls (disabled initially)
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true; // Enable damping for smoother controls
-        controls.enabled = false; // Disable OrbitControls interaction
+        controls.enabled = false; // Disable OrbitControls interaction initially
 
         // Animation loop to render the scene
         function animate() {
