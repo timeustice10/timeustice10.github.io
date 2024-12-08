@@ -45,10 +45,6 @@
         directionalLight.position.set(0, 5, 5);
         scene.add(directionalLight);
 
-        // Add OrbitControls
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-
         let computerModel;
         const loader = new GLTFLoader();
         loader.load('/retro_computer/scene.gltf', (gltf) => {
