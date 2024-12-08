@@ -91,12 +91,12 @@
   "buffers": [
     {
       "byteLength": 221608,
-      "uri": "scene.bin"
+      "uri": "my_computer.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/palette_baseColor.png"
+      "uri": "textures.png"
     }
   ],
   "materials": [
