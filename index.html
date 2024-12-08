@@ -50,7 +50,7 @@
 
         let computerModel;
         const loader = new GLTFLoader();
-        loader.load('scene.gltf', (gltf) => {
+        loader.load('/retro_computer/scene.gltf', (gltf) => {
             computerModel = gltf.scene;
             scene.add(computerModel);
         }, undefined, (error) => {
