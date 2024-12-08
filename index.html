@@ -38,18 +38,6 @@
             scene.add(computerModel);
             // Rotate the model 90 degrees to the right (clockwise)
             computerModel.rotation.y = -(Math.PI / 2); // Rotate 90 degrees (in radians)
-            computerModel.traverse((node) => {
-                if (node.isMesh) {
-                    // Fix transparency issues
-                    node.material.transparent = false;
-                    node.material.opacity = 1;
-                    node.material.side = THREE.DoubleSide;
-                    if (node.material.alphaMode) {
-                        node.material.alphaMode = 'OPAQUE';
-                    }
-                    node.material.needsUpdate = true;
-                }
-            });
             // Disable orbit controls after model is loaded
             //controls.enabled = false;
         }, undefined, (error) => {
