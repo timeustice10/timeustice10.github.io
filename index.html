@@ -27,7 +27,7 @@
 
         // Load GLTF model
         const loader = new GLTFLoader();
-        loader.load('models/my_computer/my_computer.gltf', (gltf) => {
+        loader.load('my_computer.gltf', (gltf) => {
             scene.add(gltf.scene);
         }, undefined, (error) => {
             console.error('Error loading model:', error);
