@@ -37,7 +37,7 @@
             computerModel = gltf.scene;
             scene.add(computerModel);
             // Rotate the model 90 degrees to the right (clockwise)
-            computerModel.rotation.y = Math.PI / 2; // Rotate 90 degrees (in radians)
+            computerModel.rotation.y = -(Math.PI / 2); // Rotate 90 degrees (in radians)
             // Disable orbit controls after model is loaded
             controls.enabled = false;
         }, undefined, (error) => {
