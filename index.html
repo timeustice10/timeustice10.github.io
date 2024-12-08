@@ -26,8 +26,9 @@
         document.body.appendChild(renderer.domElement);
 
         // Add a light source
-        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-        scene.add(light);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        directionalLight.position.set(0, 5, 5);
+        scene.add(directionalLight);
 
         // Load GLTF model
         const loader = new GLTFLoader();
@@ -35,6 +36,8 @@
         loader.load('/retro_computer/scene.gltf', (gltf) => {
             computerModel = gltf.scene;
             scene.add(computerModel);
+            // Rotate the model 90 degrees to the right (clockwise)
+            computerModel.rotation.y = Math.PI / 2; // Rotate 90 degrees (in radians)
             // Disable orbit controls after model is loaded
             controls.enabled = false;
         }, undefined, (error) => {
