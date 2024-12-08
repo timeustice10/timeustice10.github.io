@@ -25,21 +25,49 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
+        // Add lighting
+        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
+        scene.add(light);
+
         // Load GLTF model
+        let computerModel;
         const loader = new GLTFLoader();
-        loader.load('/my_computer/my_computer.gltf', (gltf) => {
-            scene.add(gltf.scene);
+        loader.load('/models/my_computer.gltf', (gltf) => {
+            computerModel = gltf.scene;
+            scene.add(computerModel);
         }, undefined, (error) => {
             console.error('Error loading model:', error);
         });
 
-        // Add OrbitControls to move the camera around
+        // Add OrbitControls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
 
-        // Add lighting
-        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
-        scene.add(light);
+        // Raycaster and mouse vector for detecting clicks
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Handle click event
+        function onClick(event) {
+            // Calculate mouse position in normalized device coordinates (-1 to +1)
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Update raycaster with mouse position and camera
+            raycaster.setFromCamera(mouse, camera);
+
+            // Check for intersections with the computer model
+            if (computerModel) {
+                const intersects = raycaster.intersectObject(computerModel, true);
+                if (intersects.length > 0) {
+                    // Redirect to resume.html when the computer is clicked
+                    window.location.href = 'resume.html';
+                }
+            }
+        }
+
+        // Add event listener for clicks
+        window.addEventListener('click', onClick);
 
         // Animation loop to render the scene
         function animate() {
@@ -48,6 +76,13 @@
             renderer.render(scene, camera);
         }
         animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
