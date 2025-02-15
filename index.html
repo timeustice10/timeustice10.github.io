@@ -8,11 +8,15 @@
         body {
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
         }
         .image-container {
             position: relative;
-            display: inline-block;
+            width: 80%; /* Reduced whitespace */
+            max-width: 1000px;
         }
         .image-container img {
             width: 100%;
@@ -21,13 +25,20 @@
         }
         .text-box {
             position: absolute;
-            bottom: 10px;
+            bottom: 40px; /* Moved up */
             left: 10px;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 10px;
             border-radius: 5px;
-            font-size: 20px;
+            font-size: 18px;
+        }
+        .text-box p {
+            margin: 5px 0;
+        }
+        h2 {
+            margin-top: 20px;
+            font-size: 28px;
         }
     </style>
 </head>
@@ -35,8 +46,15 @@
 
     <div class="image-container">
         <img src="Skiing.jpg" alt="Skiing">
-        <div class="text-box">Timothy Eustice</div>
+        <div class="text-box">
+            <p>Timothy Eustice</p>
+            <p>Environmental Science Major</p>
+            <p>Applied Sciences and Engineering Minor</p>
+            <p>University of North Carolina at Chapel Hill</p>
+        </div>
     </div>
+
+    <h2>About Me</h2>
 
 </body>
 </html>
