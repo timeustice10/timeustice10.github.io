@@ -90,6 +90,33 @@
         .tab-content.active {
             display: block;
         }
+
+                .gis-project-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .gis-project-image {
+            width: 45%;
+            height: auto;
+        }
+
+        .gis-project-code {
+            width: 45%;
+            height: 300px;
+            overflow-y: scroll;  /* Makes the code box scrollable */
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            font-family: monospace;
+            border-radius: 5px;
+        }
+
+        .gis-project-code pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        
     </style>
 </head>
 <body>
@@ -120,9 +147,40 @@
         <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy and creating climate risk assessments.</p>
     </div>
     
-    <div id="gis" class="tab-content">
+    <div id="gis" class="tab-content active">
         <h3>GIS Projects</h3>
-        <p>Showcase your GIS work here.</p>
+        
+        <!-- GIS Project Layout with Image and Code -->
+        <div class="gis-project-container">
+            <!-- Image Section (left side) -->
+            <img src="RandomForestClassifier.jpg" alt="Random Forest Classifier" class="gis-project-image">
+            
+            <!-- Code Section (right side) -->
+            <div class="gis-project-code">
+                <h4>Code for Random Forest Classifier:</h4>
+                <pre>
+//Random Forest Classification
+var mypoints = mytrainingPoints.randomColumn()
+var trainingPoints = mypoints.filter(ee.Filter.lt('random', 0.7));
+var validationPoints = mypoints.filter(ee.Filter.gte('random', 0.7));
+
+var trainingData = NGP.select(bands_to_use)
+	.sampleRegions({
+		collection: mytrainingPoints,
+		properties: ['label'],
+		scale: 2
+});
+
+var trained_RF2 = ee.Classifier.smileRandomForest(50)
+	.train(mytrainingData, 'label', bands_to_use);
+
+var classified_RF2 = NGP.select(bands_to_use).classify(trained_RF2);
+
+Map.addLayer(classified_RF2, RF2, "RF2 Classification");
+                </pre>
+            </div>
+        </div>
+
     </div>
 
     <div id="experience" class="tab-content">
