@@ -137,68 +137,58 @@
     </div>
 
     <div class="tabs">
-        <div class="tab active" onclick="showTab('about')">About Me</div>
-        <div class="tab" onclick="showTab('gis')">GIS Projects</div>
-        <div class="tab" onclick="showTab('experience')">Experience</div>
+        <div class="tab active" onclick="loadTabContent('about')">About Me</div>
+        <div class="tab" onclick="loadTabContent('gis')">GIS Projects</div>
+        <div class="tab" onclick="loadTabContent('experience')">Experience</div>
     </div>
 
-    <div id="about" class="tab-content active">
-        <h3>About Me</h3>
-        <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy and creating climate risk assessments.</p>
-    </div>
-    
-    <div id="gis" class="tab-content active">
-        <h3>GIS Projects</h3>
-        
-        <!-- GIS Project Layout with Image and Code -->
-        <div class="gis-project-container">
-            <!-- Image Section (left side) -->
-            <img src="RandomForestClassifier.png" alt="Random Forest Classifier" class="gis-project-image">
-            
-            <!-- Code Section (right side) -->
-            <div class="gis-project-code">
-                <h4>Code for Random Forest Classifier:</h4>
-                <pre>
-//Random Forest Classification
-var mypoints = mytrainingPoints.randomColumn()
-var trainingPoints = mypoints.filter(ee.Filter.lt('random', 0.7));
-var validationPoints = mypoints.filter(ee.Filter.gte('random', 0.7));
-
-var trainingData = NGP.select(bands_to_use)
-	.sampleRegions({
-		collection: mytrainingPoints,
-		properties: ['label'],
-		scale: 2
-});
-
-var trained_RF2 = ee.Classifier.smileRandomForest(50)
-	.train(mytrainingData, 'label', bands_to_use);
-
-var classified_RF2 = NGP.select(bands_to_use).classify(trained_RF2);
-
-Map.addLayer(classified_RF2, RF2, "RF2 Classification");
-                </pre>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="experience" class="tab-content">
-        <h3>Experience</h3>
-        <p>Highlight your work and academic experiences here.</p>
-    </div>
+    <!-- Tab Content Placeholder -->
+    <div id="tab-content-container"></div>
 
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
+        // Function to load tab content dynamically
+        function loadTabContent(tabId) {
+            // Remove 'active' class from all tabs
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+
+            // Add 'active' class to the clicked tab
+            document.querySelector(`[onclick="loadTabContent('${tabId}')"]`).classList.add('active');
+
+            // Content for each tab
+            const tabContent = {
+                about: `
+                    <h3>About Me</h3>
+                    <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy and creating climate risk assessments.</p>
+                `,
+                gis: `
+                    <h3>GIS Projects</h3>
+                    <div class="gis-project-container">
+                        <img src="RandomForestClassifier.png" alt="Random Forest Classifier" class="gis-project-image">
+                        <div class="gis-project-code">
+                            <h4>Code for Random Forest Classifier:</h4>
+                            <pre>
+# Example Python code for Random Forest Classifier
+
+                            </pre>
+                        </div>
+                    </div>
+                `,
+                experience: `
+                    <h3>Experience</h3>
+                    <p>Highlight your work and academic experiences here.</p>
+                `
+            };
+
+            // Dynamically load content for the clicked tab
+            document.getElementById('tab-content-container').innerHTML = tabContent[tabId];
         }
+
+        // On page load, load the "About Me" content by default
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTabContent('about');
+        });
     </script>
 
 </body>
