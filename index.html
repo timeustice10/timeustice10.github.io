@@ -94,31 +94,30 @@
         .tab-content.active {
             display: block;
         }
-	.gis-projects-container {
-	    width: 80%;  /* Adjust width to control side spacing */
-	    max-width: 900px;  /* Prevent it from getting too wide on large screens */
-	    margin: 0 auto;  /* Centers the container */
-	    text-align: center;  /* Centers text inside */
+	.gis-project-wrapper {
+	    display: flex;
+	    flex-wrap: wrap;  /* Ensures it stacks on small screens */
+	    justify-content: space-between;
+	    align-items: flex-start;
+	    gap: 20px;  /* Adds space between image and code */
 	}
-
-	.gis-projects-container img {
-	    display: block;  /* Makes the image a block element */
-	    margin: 20px auto;  /* Centers the image horizontally */
-	    width: 70%;  /* Adjust image width (change this if needed) */
-	    max-width: 500px;  /* Prevents the image from being too large */
+	
+	.gis-project-wrapper img {
+	    width: 35%; /* Adjust image width */
+	    max-width: 500px; /* Prevents it from getting too large */
+	    height: auto;
 	}
-
-        .gis-projects-container .gis-project-code {
-            background-color: #b0b0b0; /* Light Grey */
-	    color: #f8f8f8; /* White Text */
+	
+	.gis-project-code {
+	    width: 35%; /* Matches image width */
+	    background-color: #b0b0b0;
+	    color: #f8f8f8;
 	    padding: 15px;
 	    border-radius: 8px;
 	    border: 1px solid #ccc;
-	    text-align: left;  /* Keeps code left-aligned */
-	    overflow: auto;  /* Enables scrolling */
-	    max-height: 300px;  /* Limits height before scrolling */
-	    width: 90%;
-	    margin: 20px auto;
+	    text-align: left;
+	    overflow: auto;
+	    max-height: 300px;
 	}
 
         .gis-project-code pre {
@@ -177,7 +176,7 @@
                     <div class="gis-projects-container">
                         <h3>GIS Projects</h3>
                         <p>Developed a land-cover taxonomy and collected training data for each class in my taxonomy. The data is trained using a random forest classification. The results and necessary code are displayed below.</p>
-                        
+                        <div class="gis-project-wrapper">
                         <img src="RandomForestClassifier.png" alt="Random Forest Classifier">
                         
                         <div class="gis-project-code">
