@@ -12,10 +12,10 @@
             flex-direction: column;
             align-items: center;
             text-align: left;
-	    font-family: Arial, sans-serif;  /* Example: Arial font, fallback to sans-serif */
+            font-family: Arial, sans-serif;
         }
         .container {
-            width: 80%; /* Adjust this value to control the width */
+            width: 80%;
             max-width: 1000px;
         }
         .image-container {
@@ -48,14 +48,14 @@
 
         .profile-picture {
             position: absolute;
-            bottom: 40px; /* Aligns with text box */
-            right: 10px; /* Moves it to the bottom-left corner */
+            bottom: 40px;
+            right: 10px;
             width: 200px !important;
             height: 200px !important;
-            border-radius: 50%; /* Makes it a perfect circle */
+            border-radius: 50%;
             border: 3px solid white;
-            object-fit: cover; /* Ensures proper scaling */
-            background-color: gray; /* Prevents visibility issues with transparency */
+            object-fit: cover;
+            background-color: gray;
         }
 
         .tabs {
@@ -94,50 +94,47 @@
         .tab-content.active {
             display: block;
         }
-	.gis-projects-container {
-	    width: 80%;  /* Adjust width to control side spacing */
-	    max-width: 900px;  /* Prevent it from getting too wide on large screens */
-	    margin: 0 auto;  /* Centers the container */
-	    text-align: center;  /* Centers text inside */
-	}
 
-	.gis-projects-container img {
-	    display: block;  /* Makes the image a block element */
-	    margin: 20px auto;  /* Centers the image horizontally */
-	    width: 70%;  /* Adjust image width (change this if needed) */
-	    max-width: 500px;  /* Prevents the image from being too large */
-	}
+        .gis-projects-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .gis-projects-container img {
+            display: block;
+            margin: 20px auto;
+            width: 70%;
+            max-width: 500px;
+        }
 
         .gis-projects-container .gis-project-code {
-            background-color: #b0b0b0; /* Light Grey */
-	    color: #f8f8f8; /* White Text */
-	    padding: 15px;
-	    border-radius: 8px;
-	    border: 1px solid #ccc;
-	    text-align: left;  /* Keeps code left-aligned */
-	    overflow: auto;  /* Enables scrolling */
-	    max-height: 300px;  /* Limits height before scrolling */
-	    width: 90%;
-	    margin: 20px auto;
-	}
+            background-color: #b0b0b0;
+            color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: left;
+            overflow: auto;
+            max-height: 300px;
+            width: 90%;
+            margin: 20px auto;
+        }
 
         .gis-project-code pre {
             margin: 0;
             white-space: pre-wrap;
             word-wrap: break-word;
-        
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Image Container -->
     <div class="image-container">
         <img src="Skiing.jpg" alt="Skiing">
-        
-        <!-- Profile Picture in Bottom-Left -->
         <img src="ProfilePic.jpg" alt="Profile Picture" class="profile-picture">
-
-        <!-- Text Box in Bottom-Right -->
         <div class="text-box">
             <p>Timothy Eustice</p>
             <p>Environmental Science Major</p>
@@ -146,34 +143,28 @@
         </div>
     </div>
 
-    <!-- Tab Navigation -->
     <div class="tabs">
         <div class="tab active" onclick="loadTabContent('about')">About Me</div>
         <div class="tab" onclick="loadTabContent('gis')">GIS Projects</div>
         <div class="tab" onclick="loadTabContent('experience')">Experience</div>
     </div>
 
-    <!-- Tab Content Placeholder -->
     <div id="tab-content-container"></div>
 
     <script>
-        // Function to load tab content dynamically
         function loadTabContent(tabId) {
-            // Remove 'active' class from all tabs
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
 
-            // Add 'active' class to the clicked tab
-            document.querySelector([onclick="loadTabContent('${tabId}')"]).classList.add('active');
+            document.querySelector(`.tab[onclick="loadTabContent('${tabId}')"]`).classList.add('active');
 
-            // Content for each tab
             const tabContent = {
-                about: 
+                about: `
                     <h3>About Me</h3>
                     <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy and climate risk assessments.</p>
-                ,
-                gis: 
+                `,
+                gis: `
                     <div class="gis-projects-container">
                         <h3>GIS Projects</h3>
                         <p>Developed a land-cover taxonomy and collected training data for each class in my taxonomy. The data is trained using a random forest classification. The results and necessary code are displayed below.</p>
@@ -183,6 +174,7 @@
                         <div class="gis-project-code">
                             <h4>Code for Random Forest Classifier:</h4>
                             <pre>
+//Random Forest Classification Code
 var mytrainingPoints = 
 Water.merge(Forest).merge(Developed).merge(Cropland).merge(Undeveloped_Herbaceous);
 
@@ -198,46 +190,12 @@ var mytrainingData = NGP.select(bands_to_use)
 })
 print(mytrainingData)
 
-var trained_MDM = ee.Classifier.minimumDistance()
-	.train(mytrainingData, 'label', bands_to_use);
-
-var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
-
-Map.addLayer(classified_MDM, minDistanceClass,'min distance')
-
-//Random Forest Classification
-var mypoints = mytrainingPoints.randomColumn()
-var trainingPoints = mypoints.filter(ee.Filter.lt('random', 0.7));
-var validationPoints = mypoints.filter(ee.Filter.gte('random', 0.7));
-
-var trainingData = NGP.select(bands_to_use)
-	.sampleRegions({
-		collection: mytrainingPoints,
-		properties: ['label'],
-		scale: 2
-});
-
 var trained_RF2 = ee.Classifier.smileRandomForest(50)
 	.train(mytrainingData, 'label', bands_to_use);
 
 var classified_RF2 = NGP.select(bands_to_use).classify(trained_RF2);
 
 Map.addLayer(classified_RF2, RF2, "RF2 Classification");
-print('RF error matrix:', trained_RF2.confusionMatrix());
-print('RF accuracy: ', trained_RF2.confusionMatrix().accuracy());
-
-var test = classified_RF2.sampleRegions({
-  collection: validationPoints,
-  properties: ['label'],
-  scale: 2,
-});
-
-var testConfusionMatrix = test.errorMatrix('label',   'classification');
-print('Confusion Matrix', testConfusionMatrix);
-print('Test Accuracy', testConfusionMatrix.accuracy());
-
-var trained_CART = ee.Classifier.smileCart().train(mytrainingData, 'label', bands_to_use);
-var classified_CART = NGP.select(bands_to_use).classify(trained_CART);
                             </pre>
                         </div>
 
@@ -252,28 +210,4 @@ var classified_CART = NGP.select(bands_to_use).classify(trained_CART);
 var trained_MDM = ee.Classifier.minimumDistance()
 	.train(mytrainingData, 'label', bands_to_use);
 
-var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
-
-Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
-                            </pre>
-                        </div>
-                    </div>
-                ,
-                experience: 
-                    <h3>Experience</h3>
-                    <p>Highlight your work and academic experiences here.</p>
-                
-            };
-
-            // Dynamically load content for the clicked tab
-            document.getElementById('tab-content-container').innerHTML = tabContent[tabId];
-        }
-
-        // Load the "About Me" content by default on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadTabContent('about');
-        });
-    </script>
-
-</body>
-</html>
+var classified_MDM = N
