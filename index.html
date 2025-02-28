@@ -95,27 +95,30 @@
             display: block;
         }
 
-        .gis-project-container {
-            display: flex;
-            gap: 20px;
-        }
+        .gis-projects-container {
+    		width: 80%;  /* Adjust width to control side spacing */
+    		max-width: 900px;  /* Prevent it from getting too wide on large screens */
+    		margin: 0 auto;  /* Centers the container */
+    		text-align: center;  /* Centers text inside */
+	}
 
-        .gis-project-image {
-            width: 30%;
-	    left: 10px;
-            height: auto;
-        }
+	.gis-projects-container img {
+	    display: block;  /* Makes the image a block element */
+	    margin: 20px auto;  /* Centers the image horizontally */
+	    width: 70%;  /* Adjust image width (change this if needed) */
+	    max-width: 500px;  /* Prevents the image from being too large */
+	}
 
-        .gis-project-code {
-            width: 40%;
-            height: 250px;
-            overflow-y: scroll;  /* Makes the code box scrollable */
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            font-family: monospace;
-            border-radius: 5px;
-        }
+        .gis-projects-container .gis-project-code {
+	    background-color: #f4f4f4;  /* Light gray background for readability */
+	    padding: 15px;
+	    border-radius: 8px;
+	    text-align: left;  /* Keeps code left-aligned */
+	    overflow: auto;  /* Enables scrolling */
+	    max-height: 300px;  /* Limits height before scrolling */
+	    width: 90%;
+	    margin: 20px auto;
+	}
 
         .gis-project-code pre {
             margin: 0;
@@ -168,10 +171,10 @@
                     <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in Geographical Information Systems (GIS). My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy, climate risk assessments, as well as managment and observation of water resources.</p>
                 `,
                 gis: `
-                    <h3>GIS Projects</h3>
+                    <div class="gis-project-container">
+		    <h3>GIS Projects</h3>
                     <p>Analysis of the Northern Great Plains Research Labratory(NOGP) NEON biderectional surface reflectance data product. Training data was collected to develop a land-cover taxonomy. The data is trained using a random forest classification using red, blue, green, and near-infrared spectral bands. The results show a geometry sorted into developed, herbacoues, water, and cropland areas. 
 		    Google Earth Engine was used for this analysis.</p>
-                    <div class="gis-project-container">
                         <img src="RandomForestClassifier.png" alt="Random Forest Classifier" class="gis-project-image">
                         <div class="gis-project-code">
                             <h4>Code for Random Forest Classifier:</h4>
