@@ -121,19 +121,34 @@
             width: 90%;
             margin: 20px auto;
         }
-        /* Flexbox layout for images and text box */
-        .image-row {
+       /* Flexbox layout for stacked images with text boxes on the right side */
+        .image-text-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             width: 80%;
             max-width: 1000px;
             margin-top: 30px;
         }
 
-        .image-row img {
-            width: 48%; /* Adjust image width */
+        .image-text-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .image-text-row img {
+            width: 48%;
             height: auto;
             object-fit: cover;
+        }
+
+        .image-text-row .text-box {
+            width: 48%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
         .image-text-box {
@@ -145,7 +160,8 @@
         .image-text-box h3 {
             font-size: 24px;
             font-weight: bold;
-	}
+        }
+	    
         .gis-project-code pre {
             margin: 0;
             white-space: pre-wrap;
@@ -241,16 +257,26 @@ var trained_MDM = ee.Classifier.minimumDistance()
 var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
 
 Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
-                            </pre>
+
                         </div>
 
                     </div>
                     <div class="image-text-box">
                         <h3>ArcGIS Pro Projects</h3>
                     </div>
-                    <div class="image-row">
-                        <img src="National_Map.jpg" alt="National Map">
-                        <img src="Layout1.jpg" alt="Layout 1">
+                    <div class="image-text-container">
+                        <div class="image-text-row">
+                            <img src="National_Map.jpg" alt="National Map">
+                            <div class="text-box">
+                                <p>This is the map layout for the National Map.</p>
+                            </div>
+                        </div>
+                        <div class="image-text-row">
+                            <img src="Layout1.jpg" alt="Layout 1">
+                            <div class="text-box">
+                                <p>This is the map layout for Layout1 in ArcGIS Pro.</p>
+                            </div>
+                        </div>
                     </div>
                 `,
                 experience: `
