@@ -121,32 +121,43 @@
             width: 90%;
             margin: 20px auto;
         }
-            /* Flexbox layout for stacked images with text boxes beside them */
+	
+	.gis-project-code pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+            
+        /* Flexbox layout for stacked images with text boxes beside them */
         .image-text-container {
             width: 80%;
             max-width: 1000px;
             margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .image-text-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            gap: 20px;
         }
 
         .image-text-row img {
-            width: 48%;
+            width: 45%;
             height: auto;
             object-fit: cover;
         }
 
         .image-text-row .text-box {
-            width: 48%;
+            width: 45%;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 15px;
             border-radius: 5px;
             font-size: 16px;
+            align-self: flex-start;
         }
 
         .image-text-box {
@@ -158,12 +169,6 @@
         .image-text-box h3 {
             font-size: 24px;
             font-weight: bold;
-        }
-	    
-        .gis-project-code pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
         }
 
     </style>
