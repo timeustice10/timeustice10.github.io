@@ -128,27 +128,18 @@
             word-wrap: break-word;
         }
             
-        /* Flexbox layout for stacked images with text boxes beside them */
-        
-        .image-text-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .image-text-container img {
-            width: 45%;
-            height: auto;
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
         }
 
         .text-box {
-            width: 45%;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 20px;
             border-radius: 5px;
+            margin-top: 10px;
+            font-size: 16px;
         }
 
     </style>
@@ -240,7 +231,7 @@ var trained_MDM = ee.Classifier.minimumDistance()
 var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
 
 Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
-                           </pre>
+                            </pre>
                         </div>
                     </div>
                     
@@ -248,18 +239,17 @@ Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
                     <h3>ArcGIS Pro Projects</h3>
                     
                     <!-- ArcGIS Pro Projects Images with Text Boxes -->
-                    <div class="image-text-container">
-                        <div>
-                            <img src="National_Map.jpg" alt="National Map">
-                            <div class="text-box">
-                                <p>This is the map layout for the National Map.</p>
-                            </div>
+                    <div class="image-container">
+                        <img src="National_Map.jpg" alt="National Map">
+                        <div class="text-box">
+                            <p>This is the map layout for the National Map.</p>
                         </div>
-                        <div>
-                            <img src="Layout1.jpg" alt="Layout 1">
-                            <div class="text-box">
-                                <p>This is the map layout for Layout1 in ArcGIS Pro.</p>
-                            </div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="Layout1.jpg" alt="Layout 1">
+                        <div class="text-box">
+                            <p>This is the map layout for Layout1 in ArcGIS Pro.</p>
                         </div>
                     </div>
                 `,
