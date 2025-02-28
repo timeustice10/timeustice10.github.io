@@ -201,27 +201,18 @@ Map.addLayer(classified_RF2, RF2, "RF2 Classification");
             <p>This project involves a mean distance classification technique for land cover classification. The data is processed, and a classification model is created using a mean distance algorithm. The code and results are shown below.</p>
 
             <div class="gis-project-container">
-                <img src="MeanDistanceClassifier.jpg" alt="Mean Distance Classifier" class="gis-project-image">
+                <img src="MeanDistanceClassifier.png" alt="Mean Distance Classifier" class="gis-project-image">
                 <div class="gis-project-code">
                     <h4>Code for Mean Distance Classifier:</h4>
                     <pre>
-# Example Python code for Mean Distance Classifier
-import numpy as np
-from sklearn.neighbors import NearestNeighbors
-import matplotlib.pyplot as plt
+//Mean Distance Classifier
 
-# Generate random data for demonstration
-X = np.random.rand(100, 2)  # 100 points in 2D space
+var trained_MDM = ee.Classifier.minimumDistance()
+	.train(mytrainingData, 'label', bands_to_use);
 
-# Apply nearest neighbors algorithm
-neighbors = NearestNeighbors(n_neighbors=5)
-neighbors.fit(X)
-distances, indices = neighbors.kneighbors(X)
+var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
 
-# Calculate mean distance
-mean_distance = np.mean(distances)
-
-print(f"Mean distance: {mean_distance:.2f}")
+Map.addLayer(classified_MDM, minDistanceClass,'min distance')
                     </pre>
                 </div>
             </div>
