@@ -109,7 +109,7 @@
 	}
 
         .gis-projects-container .gis-project-code {
-    	    background-color: #2e2e2e; /* Dark Grey */
+    	    background-color: ##444; /* Dark Grey */
 	    padding: 15px;
 	    border-radius: 8px;
 	    border: 1px solid #ccc;
@@ -182,7 +182,30 @@
                         <div class="gis-project-code">
                             <h4>Code for Random Forest Classifier:</h4>
                             <pre>
-var mypoints = mytrainingPoints.randomColumn();
+var mytrainingPoints = 
+Water.merge(Forest).merge(Developed).merge(Cropland).merge(Undeveloped_Herbaceous);
+
+var landcover_labels = 'label';
+
+var bands_to_use = ['B023','B039','B055','B097'];
+
+var mytrainingData = NGP.select(bands_to_use)
+	.sampleRegions({
+		collection: mytrainingPoints,
+		properties: [landcover_labels],
+		scale: 2
+})
+print(mytrainingData)
+
+var trained_MDM = ee.Classifier.minimumDistance()
+	.train(mytrainingData, 'label', bands_to_use);
+
+var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
+
+Map.addLayer(classified_MDM, minDistanceClass,'min distance')
+
+//Random Forest Classification
+var mypoints = mytrainingPoints.randomColumn()
 var trainingPoints = mypoints.filter(ee.Filter.lt('random', 0.7));
 var validationPoints = mypoints.filter(ee.Filter.gte('random', 0.7));
 
@@ -197,6 +220,23 @@ var trained_RF2 = ee.Classifier.smileRandomForest(50)
 	.train(mytrainingData, 'label', bands_to_use);
 
 var classified_RF2 = NGP.select(bands_to_use).classify(trained_RF2);
+
+Map.addLayer(classified_RF2, RF2, "RF2 Classification");
+print('RF error matrix:', trained_RF2.confusionMatrix());
+print('RF accuracy: ', trained_RF2.confusionMatrix().accuracy());
+
+var test = classified_RF2.sampleRegions({
+  collection: validationPoints,
+  properties: ['label'],
+  scale: 2,
+});
+
+var testConfusionMatrix = test.errorMatrix('label',   'classification');
+print('Confusion Matrix', testConfusionMatrix);
+print('Test Accuracy', testConfusionMatrix.accuracy());
+
+var trained_CART = ee.Classifier.smileCart().train(mytrainingData, 'label', bands_to_use);
+var classified_CART = NGP.select(bands_to_use).classify(trained_CART);
                             </pre>
                         </div>
 
