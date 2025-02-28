@@ -128,13 +128,14 @@
 </head>
 <body>
 
+    <!-- Image Container -->
     <div class="image-container">
         <img src="Skiing.jpg" alt="Skiing">
         
-        <!-- Profile Picture Positioned in Bottom-Left -->
+        <!-- Profile Picture in Bottom-Left -->
         <img src="ProfilePic.jpg" alt="Profile Picture" class="profile-picture">
 
-        <!-- Text Box Positioned in Bottom-Right -->
+        <!-- Text Box in Bottom-Right -->
         <div class="text-box">
             <p>Timothy Eustice</p>
             <p>Environmental Science Major</p>
@@ -143,6 +144,7 @@
         </div>
     </div>
 
+    <!-- Tab Navigation -->
     <div class="tabs">
         <div class="tab active" onclick="loadTabContent('about')">About Me</div>
         <div class="tab" onclick="loadTabContent('gis')">GIS Projects</div>
@@ -167,19 +169,19 @@
             const tabContent = {
                 about: `
                     <h3>About Me</h3>
-                    <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in Geographical Information Systems (GIS). My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy, climate risk assessments, as well as managment and observation of water resources.</p>
+                    <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy and climate risk assessments.</p>
                 `,
                 gis: `
-                    <div class="gis-project-container">
-		    <h3>GIS Projects</h3>
-                    <p>Analysis of the Northern Great Plains Research Labratory(NOGP) NEON biderectional surface reflectance data product. Training data was collected to develop a land-cover taxonomy. The data is trained using a random forest classification using red, blue, green, and near-infrared spectral bands. The results show a geometry sorted into developed, herbacoues, water, and cropland areas. 
-		    Google Earth Engine was used for this analysis.</p>
-                        <img src="RandomForestClassifier.png" alt="Random Forest Classifier" class="gis-project-image">
+                    <div class="gis-projects-container">
+                        <h3>GIS Projects</h3>
+                        <p>Developed a land-cover taxonomy and collected training data for each class in my taxonomy. The data is trained using a random forest classification. The results and necessary code are displayed below.</p>
+                        
+                        <img src="RandomForestClassifier.png" alt="Random Forest Classifier">
+                        
                         <div class="gis-project-code">
                             <h4>Code for Random Forest Classifier:</h4>
                             <pre>
-//Random Forest Classification
-var mypoints = mytrainingPoints.randomColumn()
+var mypoints = mytrainingPoints.randomColumn();
 var trainingPoints = mypoints.filter(ee.Filter.lt('random', 0.7));
 var validationPoints = mypoints.filter(ee.Filter.gte('random', 0.7));
 
@@ -194,48 +196,27 @@ var trained_RF2 = ee.Classifier.smileRandomForest(50)
 	.train(mytrainingData, 'label', bands_to_use);
 
 var classified_RF2 = NGP.select(bands_to_use).classify(trained_RF2);
+                            </pre>
+                        </div>
 
-Map.addLayer(classified_RF2, RF2, "RF2 Classification");
-var test = classified_RF2.sampleRegions({
-  collection: validationPoints,
-  properties: ['label'],
-  scale: 2,
-});
+                        <h4>Mean Distance Classifier</h4>
+                        <p>This analysis is the same data product but sorted using a mean distance classifier.</p>
 
-var testConfusionMatrix = test.errorMatrix('label',   'classification');
-print('Confusion Matrix', testConfusionMatrix);
-print('Test Accuracy', testConfusionMatrix.accuracy());
-
-var trained_CART = ee.Classifier.smileCart().train(mytrainingData, 'label', bands_to_use);
-var classified_CART = NGP.select(bands_to_use).classify(trained_CART);
-
-var graph = ui.Chart.image.histogram(classified_CART, classified_CART.geometry(), 20).setOptions({
-  title: 'Histogram ## pixels for each class',
-                   </pre>
-                </div>
-            </div>
-
-            <!-- New Title Text Box Below Image -->
-            <h4>Mean Distance Classifier</h4>
-            <p>This analysis is the same data product but sorted using a mean distance classifier.</p>
-
-            <div class="gis-project-container">
-                <img src="MeanDistanceClassifier.png" alt="Mean Distance Classifier" class="gis-project-image">
-                <div class="gis-project-code">
-                    <h4>Code for Mean Distance Classifier:</h4>
-                    <pre>
-//Mean Distance Classifier
-
+                        <img src="MeanDistanceClassifier.png" alt="Mean Distance Classifier">
+                        
+                        <div class="gis-project-code">
+                            <h4>Code for Mean Distance Classifier:</h4>
+                            <pre>
 var trained_MDM = ee.Classifier.minimumDistance()
 	.train(mytrainingData, 'label', bands_to_use);
 
 var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
 
-Map.addLayer(classified_MDM, minDistanceClass,'min distance')
-                    </pre>
-                </div>
-            </div>
-        `,
+Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
+                            </pre>
+                        </div>
+                    </div>
+                `,
                 experience: `
                     <h3>Experience</h3>
                     <p>Highlight your work and academic experiences here.</p>
@@ -246,7 +227,7 @@ Map.addLayer(classified_MDM, minDistanceClass,'min distance')
             document.getElementById('tab-content-container').innerHTML = tabContent[tabId];
         }
 
-        // On page load, load the "About Me" content by default
+        // Load the "About Me" content by default on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadTabContent('about');
         });
