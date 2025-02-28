@@ -257,13 +257,16 @@ var trained_MDM = ee.Classifier.minimumDistance()
 var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
 
 Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
-
+                           </pre>
                         </div>
 
                     </div>
+                    
                     <div class="image-text-box">
                         <h3>ArcGIS Pro Projects</h3>
                     </div>
+
+                    <!-- ArcGIS Pro Projects -->
                     <div class="image-text-container">
                         <div class="image-text-row">
                             <img src="National_Map.jpg" alt="National Map">
