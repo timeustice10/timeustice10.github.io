@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Website</title>
-    <style>
+    <link rel="stylesheet" href="portfolio.css">
+</head>
         body {
             margin: 0;
             padding: 0;
@@ -13,18 +14,18 @@
             align-items: center;
             text-align: left;
             font-family: Arial, sans-serif;
+            background-color: #778899; /* Light Slate Gray */
         }
         .container {
             width: 100%;
-            max-width: 1000px;
         }
         .image-container { 
             position: relative;
             width: 100%;
-            max-width: 1000px;
+
         }
 
-        .image-container img { <!--background pic -->
+        .image-container img { 
             width: 100%;
             height: auto;
             display: block;
@@ -39,19 +40,21 @@
             color: white;
             padding: 10px;
             border-radius: 5px;
-            font-size: 18px;
+            width: 600px !important;
+            height: 150px !important;
         }
 
         .text-box p {
             margin: 5px 0;
+            font-size: 30px;
         }
 
         .profile-picture {
             position: absolute;
             bottom: 40px;
             right: 10px;
-            width: 200px !important;
-            height: 200px !important;
+            width: 400px !important;
+            height: 400px !important;
             border-radius: 50%;
             border: 3px solid white;
             object-fit: cover;
@@ -59,11 +62,14 @@
         }
 
         .tabs {
-            width: 80%;
+            width: 100%;
+            justify-content: flex-start; /* Centers the tabs horizontally */
+            align-items: center; /* Aligns items vertically (optional) */
             max-width: 1000px;
             display: flex;
             gap: 20px;
             margin-top: 10px;
+            margin-left: 100px !important; /* Add margin to shift tabs to the right */
         }
 
         .tab {
@@ -83,7 +89,7 @@
         }
 
         .tab-content {
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
             background-color: #f4f4f4;
             padding: 20px;
@@ -98,15 +104,17 @@
         .gis-projects-container {
             width: 80%;
             max-width: 900px;
-            margin: 0 auto;
+            margin: 10px;
+            padding: 15px;
             text-align: center;
+            background-color: white; /* White background */
+            border-radius: 5px 5px 0 0;
         }
 
         .gis-projects-container img {
             display: block;
             margin: 20px auto;
-            width: 70%;
-            max-width: 500px;
+            width: 80%;
         }
 
         .gis-projects-container .gis-project-code {
@@ -122,12 +130,12 @@
             margin: 20px auto;
         }
 	
-	.gis-project-code pre {
+	    .gis-project-code pre {
             margin: 0;
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-            
+
         .image-container {
             margin: 20px 0;
             text-align: center;
@@ -140,15 +148,18 @@
             border-radius: 5px;
             margin-top: 10px;
             font-size: 16px;
+            text-align: center;
         }
-
-    </style>
-</head>
+        .experience-images {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }	
 <body>
-
     <div class="image-container">
-        <img src="Skiing.jpg" alt="Skiing">
-        <img src="ProfilePic.jpg" alt="Profile Picture" class="profile-picture">
+        <img src="images/Skiing.jpg" alt="Skiing">
+        <img src="images/ProfilePic.jpg" alt="Profile Picture" class="profile-picture">
         <div class="text-box">
             <p>Timothy Eustice</p>
             <p>Environmental Science Major</p>
@@ -159,7 +170,8 @@
 
     <div class="tabs">
         <div class="tab active" data-tab="about">About Me</div>
-        <div class="tab" data-tab="gis">GIS Projects</div>
+        <div class="tab" data-tab="gis">Google Earth Engine</div>
+        <div class="tab" data-tab="ArcGisPro">ArcGIS Pro</div>
         <div class="tab" data-tab="experience">Experience</div>
     </div>
 
@@ -179,20 +191,23 @@
             // Content for each tab
             const tabContent = {
                 about: `
-                    <h3>About Me</h3>
-                    <p>Hello, I am a junior at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy and climate risk assessments.</p>
+                    <div class="gis-projects-container">
+                        <h3>About Me</h3>
+                        <p>Hello, I am a third-year undergraduate at UNC Chapel Hill looking for work experience in GIS. My coursework is based in ArcGIS Pro and Google Earth Engine. I am interested in using GIS to influence energy policy, creating climate risk assesments, and managing water resources.</p>
                 `,
                 gis: `
                     <div class="gis-projects-container">
-                        <h3>Goole Earth Engine Projects</h3>
-                        <p>Developed a land-cover taxonomy and collected training data for each class in my taxonomy. The data is trained using a random forest classification. The results and necessary code are displayed below.</p>
+                        <h4>Random Forest Classification</h4>
+                        <p>Analysis of the Northern Great Plains Research Labratory(NOGP) NEON biderectional surface reflectance data product. Training data was collected to develop a land-cover taxonomy. The data is trained using a random forest classification using red, blue, green, and near-infrared spectral bands. The results show a geometry sorted into developed, herbacoues, water, and cropland areas.
+                            The second image displayes a co-spectral chart of randomly selected points in the geometry. Using NIR and Red spectral bands the plot succesfully differentiates between soil, vegatation, and water based on the points position in the plot. This is useful for further training methods such as min distance to means, parralel piped, and maximum likelihood classifiers. Google Earth Engine was used for this analysis.</p>
                         
-                        <img src="RandomForestClassifier.png" alt="Random Forest Classifier">
+                        <img src="images/RandomForestClassifier.png" alt="Random Forest Classifier">
+                        <img src="images/ee-chart.png" alt="Spectral Chart", height="300">
                         
                         <div class="gis-project-code">
-                            <h4>Code for Random Forest Classifier:</h4>
+                            <h4>Code for Random Forest Classifier and Spectral Chart:</h4>
                             <pre>
-//Random Forest Classification Code
+//Random Forest Classification CodeS
 var mytrainingPoints = 
 Water.merge(Forest).merge(Developed).merge(Cropland).merge(Undeveloped_Herbaceous);
 
@@ -214,48 +229,194 @@ var trained_RF2 = ee.Classifier.smileRandomForest(50)
 var classified_RF2 = NGP.select(bands_to_use).classify(trained_RF2);
 
 Map.addLayer(classified_RF2, RF2, "RF2 Classification");
+Map.addLayer(classified_RF2, RF2, "RF2 Classification");
+
+// Pull out only the data bands (these all start with B, eg. B001)
+var NGPData = NGP.select('B.*')
+print('NGP brdf data', NGPData) //This is a good step so that you can look in //the console and see what you got.
+
+// Read in the properties as a dictionary. Really only way
+var properties = NGP.toDictionary()
+
+// Select the WL_FWHM_B*** band properties (using regex). Trust
+var wl_fwhm_dict = properties.select(['WL_FWHM_B+\\d{3}']);
+
+// Pull out the wavelength, fwhm values to a list. jtm. 
+var wl_fwhm_list = wl_fwhm_dict.values()
+print('Wavelength FWHM list:',wl_fwhm_list)
+
+// Function to pull out the wavelength values only and convert the string to //float. ™, really.
+var get_wavelengths = function(x) {
+  var str_split = ee.String(x).split(',')
+  var first_elem = ee.Number.parse((str_split.get(0)))
+  return first_elem
+}
+
+// apply the function to the wavelength full-width-half-max list
+var wavelengths = wl_fwhm_list.map(get_wavelengths)
+print('Wavelengths:',wavelengths)
+
+print('Number of data bands:',wavelengths.length()) //worth taking a look at this.
+
+// Create a panel to hold the spectral signature plot
+var panel = ui.Panel();
+panel.style().set({width: '500px',height: '200px',position: 'top-left'});
+Map.add(panel);
+Map.style().set('cursor', 'crosshair');
+
+// Create a function to draw a chart when a user clicks on the map.
+Map.onClick(function(coords) {
+  panel.clear();
+  var point = ee.Geometry.Point(coords.lon, coords.lat);
+    wavelengths.evaluate(function(wvlnghts) {
+      var chart = ui.Chart.image.regions({
+        image: NGPData, 
+        regions: point, 
+        scale: 1,
+        seriesProperty: 'λ (nm)', 
+        xLabels: wavelengths.getInfo()
+    });
+    chart.setOptions({
+      title: 'Reflectance',
+      hAxis: {title: 'Wavelength (nm)', 
+      vAxis: {title: 'Reflectance'},
+      gridlines: { count: 5 }}
+    });
+    // Create and update the location label 
+    var location = 'Longitude: ' + coords.lon.toFixed(2) + ' ' +
+                   'Latitude: ' + coords.lat.toFixed(2);
+    panel.widgets().set(1, ui.Label(location));
+    panel.add(chart);
+  })
+});
+
+// Draw a random sample of points from NOGP.
+var Samp = NGP.sample(
+    {region: NGP.geometry(), scale: 1, numPixels: 2000, geometries: true});
+
+// Generate 50 random points with the region.
+var randomPoints = ee.FeatureCollection.randomPoints(
+    {region: neon, points: 50, seed: 0, maxError: 1});
+
+//Display it in a spectral chart
+var chart = ui.Chart.image.byRegion({
+                  image: NGP.select(['B097']),
+                  regions: Samp,
+                  reducer: ee.Reducer.mean(),
+                  scale: 1,
+                  xProperty: 'B055'
+                })
+                .setSeriesNames(['NOGP']) 
+                .setChartType('ScatterChart')
+                .setOptions({
+                  title: "Co-Spectral Plot",
+                  hAxis: {
+                    title: 'Red Reflectance',
+                    titleTextStyle: {italic: false, bold: true}
+                  },
+                  vAxis: {
+                    title: "Near-Infrared Reflectance",
+                    titleTextStyle: {italic: false, bold: true}
+                  },
+                  pointSize: 4,
+                  dataOpacity: 0.6,
+                  colors: ['1d6b99'],
+                });
+print(chart);
+
+Map.centerObject(NGP, 12)
+Map.addLayer(NGP, imageVisParam, "NGP brdf corrected")
+Map.addLayer(Samp);
+print(neon)
+
                             </pre>
                         </div>
 
-                        <h4>Mean Distance Classifier</h4>
-                        <p>This analysis is the same data product but sorted using a mean distance classifier.</p>
-
-                        <img src="MeanDistanceClassifier.png" alt="Mean Distance Classifier">
+                        <h4>Identifying Water Bodies Using Texture and NDVI</h4>
+                        <p>This analysis shows a landsat 8 image of Las Vegas, Nevada with large water reseviors highlighted in blue. The code shows a cloud mask application using the QA band, then calculates NDVI to find NIR absorbing pixels (typically dark water bodies). Next, it computes texture (surface roughness) using a standard deviation filter. Finally, it identifies water bodies by selecting areas with low NDVI and low texture variation, displaying them in blue on the map.</p>
+                        <img src="images/Texture.png" alt="Texture">
                         
                         <div class="gis-project-code">
-                            <h4>Code for Mean Distance Classifier:</h4>
+                            <h4>Code for Identifier:</h4>
                             <pre>
-var trained_MDM = ee.Classifier.minimumDistance()
-	.train(mytrainingData, 'label', bands_to_use);
+var LV_OLI_2021 = ee.Image('LANDSAT/LC08/C02/T1_L2/LC08_039035_20210708');
 
-var classified_MDM = NGP.select(bands_to_use).classify(trained_MDM);
+// Function to Mask Clouds Using the QA Band
+function maskClouds(image) {
+  var QA = image.select('QA_PIXEL'); // Landsat 8 QA band
+  var cloudMask = QA.bitwiseAnd(1 << 3).eq(0); // Bit 3 indicates clouds
+  return image.updateMask(cloudMask);
+}
 
-Map.addLayer(classified_MDM, minDistanceClass, 'min distance');
+// Apply Cloud Mask
+var maskedImage = maskClouds(LV_OLI_2021);
+
+var nir = maskedImage.select('SR_B5');
+var red = maskedImage.select('SR_B4');
+var LV_NDVI = nir.subtract(red).divide(nir.add(red)).rename("NDVI_21");
+
+
+
+var texture = LV_NDVI.reduceNeighborhood({
+  reducer: ee.Reducer.stdDev(),
+  kernel: ee.Kernel.square(1),
+});
+
+// Create a Water Mask:
+var waterMask = LV_NDVI.lt(0.008).and(texture.lt(0.05));
+
+Map.centerObject(LV_NDVI)
+Map.addLayer(LV_OLI_2021)
+Map.addLayer(texture, imageVisParam, "texture using std")
+Map.addLayer(waterMask.selfMask(), {palette: 'blue'}, 'Water Bodies');
                             </pre>
+                `,
+                ArcGisPro: `
+                    <div class="gis-projects-container">
+                        <h3>Arc Gis Projects</h3>
+                        <p>The introduction below and following two images are highlights of a policy brief on innovative methods to allievate transmission grid congestion. I used ArcGis Pro to provide visuals for the brief and give a spatial understanding of transmission grid infrastructure in the United States.</p>
+                        <div class="gis-project-code">
+                        <h4>How Can Hydrogen Blending Overcome Transmission Grid Deficiencies by Leveraging Renewable Electrical Generators in the Interconnection Queue
+</h4>
+                            <pre>
+Commitments to reducing emissions and promoting clean energy have been made by the United States federal government as well as state legislatures, focusing on a robust clean electricity grid capable of supporting the nation's growing demand. The Biden Administration has set a goal of 100% clean electricity within the next decade but is facing an aging transmission grid that cannot handle the increased load required for this transformation. The Department of Energy estimates that regional transmission grids must increase capacity by 64% to meet energy needs over the next decade (U.S. Department of Energy). For context, the nation's transmission lines have expanded at a rate of just 1% per year for the past decade (CNBC). New grid infrastructure is also tremendously time-consuming. Expansions can take up to 15 years to complete due to lengthy permitting and cost allocation processes. This struggle to increase capacity is evident when examining the transmission interconnection queue for newly built renewable energy projects. As of 2023, the U.S. has almost 2 million megawatts of solar, wind, and battery storage capacity waiting to connect to the energy grid (Decarbonization). High queue withdrawal rates—resulting from an approximately four-year wait—mean that only 19% of the connections in the queue have been finalized over the past decade (Decarbonization). This significant roadblock to clean energy initiatives stems from a challenging transmission expansion process, which is hindered by site and permitting difficulties, poor financial incentives, and cost allocation issues. The DOE has highlighted the need not only to reduce congestion but also to increase interregional transmission connections.
+A renewable energy grid requires a shift in design doctrine, moving from a one-way flow of electricity from large-scale fossil-fuel power generators to consumers. A clean grid would not only feature large-scale generators but also many small power sources, such as rooftop solar, resulting in two-way power flow as these small connections feed energy back into the grid. Furthermore, large-scale renewable energy generators are often decentralized, as solar and wind resources require space far from concentrated consumer populations. This decentralization necessitates more transmission infrastructure, as wind farms in the Midwest or solar fields in the desert must be able to transmit power to distant population centers. Currently, this interregional transmission infrastructure does not exist. Median capacity expansion projections indicate that interregional transfer capacity must grow by 412% to meet high energy growth estimates over the next decade (U.S. Department of Energy). These expansions will require massive investments from utilities, which will directly impact customers through rate hikes. According to the Edison Electric Institute, in 2020 utilities spent $132.7 billion on capital expenditures, excluding transmission-related expenses. The transmission expansion required to meet the goals of a fully renewable grid could cost as much as $504 billion (Loris). 
+The greatest hurdles to a clean electricity grid are congestion and a lack of interregional connections. However, the nation relies not only on the electricity grid to transport energy but also on a robust natural gas infrastructure that delivers 30 trillion cubic feet of natural gas to 70 million consumers (U.S. Energy Information Administration). These 3 million miles of pipeline can offer a solution to efficiently transporting clean energy across the nation through hydrogen blending. Hydrogen, as an energy carrier, can be produced from any energy source, including renewable energy like solar or wind. The need for a carbon-free energy carrier is essential to decarbonization efforts, particularly for heavy industries reliant on combustible fuel. Hydrogen has been hailed as a critical component of a carbon-neutral world but has been limited by a lack of infrastructure to produce and transport the energy.
+Hydrogen production in the United States already exists on an industrial scale but is primarily performed through carbon-heavy steam methane reforming. In this process, high-pressure steam is exposed to methane sourced from natural gas, producing hydrogen, carbon monoxide, and CO2 (U.S. Energy Information Administration). However, clean hydrogen production is possible through electrical electrolysis. Although electrolysis is energy-intensive, it offers a carbon-free approach if the electricity is sourced from renewable generators. Hydrogen produced via electrolysis currently costs between $4 and $7 per kilogram, compared to $1 to $2.50 per kilogram through steam methane reforming. The high price of electricity required for electrolysis could be reduced by utilizing renewable generators in the interconnection queue. Leveraging the vast amounts of renewable energy in limbo to create clean hydrogen could alleviate grid congestion while jump-starting the hydrogen economy. Clean hydrogen could then be transported via the nation’s vast natural gas network through hydrogen blending. This would not only ease the interconnection queue but also overcome the lack of interregional access to clean energy. The transmission grid’s critical issues cannot be solved in time to meet the carbon targets set by state legislatures and the Biden administration. However, hydrogen blending sourced from renewable energy in the interconnection queue presents an innovative solution to clean energy.
+Geospatial analysis shows that a significant portion of counties with renewable projects in the queue also have existing natural gas infrastructure, indicating strong potential for hydrogen blending.
+                            <pre>
                         </div>
-                    </div>
-                    
-                    <!-- ArcGIS Pro Projects -->
-                    <h3>ArcGIS Pro Projects</h3>
-                    
-                    <!-- ArcGIS Pro Projects Images with Text Boxes -->
-                    <div class="image-container">
-                        <img src="National_Map.jpg" alt="National Map">
-                        <div class="text-box">
-                            <p>This is the map layout for the National Map.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="image-container">
-                        <img src="Layout1.jpg" alt="Layout 1">
-                        <div class="text-box">
-                            <p>This is the map layout for Layout1 in ArcGIS Pro.</p>
+                        <div class="experience-images">
+                            <div class="experience-image">
+                                <img src="images/Layout1.jpg" alt="Layout 1" style="width:80%;">
+                            </div>
+                            <div class="experience-image">
+                                <img src="images/National_Map.jpg" alt="National Map" style="width:80%;">
+                            </div>
+                            <div class="experience-image">
+                                <p>Displayed below is a map of North Carolina counties by climate risk and population using a bivariate color scheme. Darker blue highlights a greater risk to climate events. Darker red highlights denser populations. This identifies large populations in need of greater climate resilience and resource planning. <p>
+                                <img src="images/CimalteRisk.png" alt="Climate Risk" style="width:80%;">
+                            </div>
                         </div>
                     </div>
                 `,
                 experience: `
-                    <h3>Experience</h3>
-                    <p>Highlight your work and academic experiences here.</p>
+                    <div class="gis-projects-container">
+                        <h3>Internship with ISSRL</h3>
+                        <p>This internship gave me hands-on experience in computational research with a focus on aerodynamics and fluid dynamics. I worked with various models to simulate and analyze different objects in airflow. Below are some of the images from the projects I worked on:</p>
+                        <div class="experience-images">
+                            <div class="experience-image">
+                                <img src="images/Airfoil.jpg" alt="Airfoil" style="width:80%;">
+                            </div>
+                            <div class="experience-image">
+                                <img src="images/BluffBody.jpg" alt="Bluff Body" style="width:80%;">
+                                <div class="text-box">Airfoil</div>
+                            </div>
+                            <div class="experience-image">
+                                <img src="images/TimResearch.jpg" alt="Tim Research" style="width:80%;">
+                            </div>
+                        </div>
+                    </div>
                 `,
             };
 
