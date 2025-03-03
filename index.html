@@ -6,157 +6,8 @@
     <title>My Website</title>
     <link rel="stylesheet" href="portfolio.css">
 </head>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: left;
-            font-family: Arial, sans-serif;
-            background-color: #778899; /* Light Slate Gray */
-        }
-        .container {
-            width: 100%;
-        }
-        .image-container { 
-            position: relative;
-            width: 100%;
-
-        }
-
-        .image-container img { 
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
-        .text-box {
-            position: absolute;
-            bottom: 40px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            width: 600px !important;
-            height: 150px !important;
-        }
-
-        .text-box p {
-            margin: 5px 0;
-            font-size: 30px;
-        }
-
-        .profile-picture {
-            position: absolute;
-            bottom: 40px;
-            right: 10px;
-            width: 400px !important;
-            height: 400px !important;
-            border-radius: 50%;
-            border: 3px solid white;
-            object-fit: cover;
-            background-color: gray;
-        }
-
-        .tabs {
-            width: 100%;
-            justify-content: flex-start; /* Centers the tabs horizontally */
-            align-items: center; /* Aligns items vertically (optional) */
-            max-width: 1000px;
-            display: flex;
-            gap: 20px;
-            margin-top: 10px;
-            margin-left: 100px !important; /* Add margin to shift tabs to the right */
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background-color: #ddd;
-            cursor: pointer;
-            border-radius: 5px 5px 0 0;
-        }
-
-        .tab:hover {
-            background-color: #bbb;
-        }
-
-        .tab.active {
-            background-color: #888;
-            color: white;
-        }
-
-        .tab-content {
-            width: 100%;
-            max-width: 1000px;
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 0 0 5px 5px;
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .gis-projects-container {
-            width: 80%;
-            max-width: 900px;
-            margin: 10px;
-            padding: 15px;
-            text-align: center;
-            background-color: white; /* White background */
-            border-radius: 5px 5px 0 0;
-        }
-
-        .gis-projects-container img {
-            display: block;
-            margin: 20px auto;
-            width: 80%;
-        }
-
-        .gis-projects-container .gis-project-code {
-            background-color: #b0b0b0;
-            color: #f8f8f8;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            text-align: left;
-            overflow: auto;
-            max-height: 300px;
-            width: 90%;
-            margin: 20px auto;
-        }
-	
-	    .gis-project-code pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .image-container {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .text-box {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 10px;
-            font-size: 16px;
-            text-align: center;
-        }
-        .experience-images {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-        }	
 <body>
+
     <div class="image-container">
         <img src="images/Skiing.jpg" alt="Skiing">
         <img src="images/ProfilePic.jpg" alt="Profile Picture" class="profile-picture">
@@ -403,7 +254,8 @@ Geospatial analysis shows that a significant portion of counties with renewable 
                 experience: `
                     <div class="gis-projects-container">
                         <h3>Internship with ISSRL</h3>
-                        <p>This internship gave me hands-on experience in computational research with a focus on aerodynamics and fluid dynamics. I worked with various models to simulate and analyze different objects in airflow. Below are some of the images from the projects I worked on:</p>
+                        <p>In 2022, I interned with NC State's Intelligent Structures and Systems Research Lab (ISSRL), studying the annihilation of Limited Cycle Oscillations (LCOs) using vortex shedding generated by an on-wing bluff body. This research involved designing an airfoil in Fusion 360, which was 3D-printed and used to create a prototype for wind tunnel experiments.
+                            The results were collected using a laser vibrometer and analyzed in MATLAB to understand how an upwind bluff body could be used to stabilize an airfoil undergoing LCOs. This internship provided me with hands-on experience in computational research and general lab work.</p>
                         <div class="experience-images">
                             <div class="experience-image">
                                 <img src="images/Airfoil.jpg" alt="Airfoil" style="width:80%;">
