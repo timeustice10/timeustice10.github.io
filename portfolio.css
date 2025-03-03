@@ -143,9 +143,3 @@
             font-size: 16px;
             text-align: center;
         }
-        .experience-images {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-        }
